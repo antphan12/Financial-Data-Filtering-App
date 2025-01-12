@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/FilterForm.css';
 
 const FilterForm: React.FC<{ onFilter: (filters: { dateRange: [string, string]; revenueRange: [number, number]; netIncomeRange: [number, number] }) => void }> = ({ onFilter }) => {
     const [startDate, setStartDate] = useState('');
@@ -18,7 +19,7 @@ const FilterForm: React.FC<{ onFilter: (filters: { dateRange: [string, string]; 
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+        <form onSubmit={handleSubmit} className="form">
             <div>
                 <label>Date Range:</label>
                 <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
@@ -34,7 +35,7 @@ const FilterForm: React.FC<{ onFilter: (filters: { dateRange: [string, string]; 
                 <input type="number" value={minNetIncome} onChange={(e) => setMinNetIncome(e.target.value)} placeholder="Min Net Income" />
                 <input type="number" value={maxNetIncome} onChange={(e) => setMaxNetIncome(e.target.value)} placeholder="Max Net Income" />
             </div>
-            <button type="submit" className="bg-blue-500 text-white p-2 rounded">Filter</button>
+            <button type="submit">Apply Filters</button>
         </form>
     );
 };
