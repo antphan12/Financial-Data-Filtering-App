@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/DataTable.css';
 
-
+// Define the structure of the financial data
 interface FinancialData {
     date: string;
     revenue: number;
@@ -11,10 +11,12 @@ interface FinancialData {
     operatingIncome: number;
 }
 
+// Define the props for the DataTable component
 interface DataTableProps {
     data: FinancialData[];
 }
 
+// DataTable component to display financial data in a table format
 const DataTable: React.FC<DataTableProps> = ({ data }) => {
     return (
         <div>
