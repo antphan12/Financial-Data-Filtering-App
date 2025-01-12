@@ -1,28 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { FinancialData } from '../types';
 
-const useFetchData = (apiKey: string) => {
-    const [data, setData] = useState<any[]>([]);
+const useFetchData = (url: string) => {
+    const [data, setData] = useState<FinancialData[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://financialmodelingprep.com/api/v3/income-statement/AAPL?period=annual&apikey=${apiKey}`);
+                const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const result = await response.json();
                 setData(result);
             } catch (error) {
-                setError(error.message);
+                if (error instanceof Error) {
+                    setError(error.message);
+                } else {
+                    setError(String(error));
+                }
             } finally {
                 setLoading(false);
             }
         };
 
         fetchData();
-    }, [apiKey]);
+    }, [url]);
 
     return { data, loading, error };
 };
