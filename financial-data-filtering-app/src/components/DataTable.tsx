@@ -1,4 +1,6 @@
 import React from 'react';
+import '../styles/DataTable.css';
+
 
 interface FinancialData {
     date: string;
@@ -15,27 +17,27 @@ interface DataTableProps {
 
 const DataTable: React.FC<DataTableProps> = ({ data }) => {
     return (
-        <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+        <div>
+            <table>
+                <thead>
                     <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Net Income</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gross Profit</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">EPS</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Operating Income</th>
+                        <th>Date</th>
+                        <th>Revenue</th>
+                        <th>Net Income</th>
+                        <th>Gross Profit</th>
+                        <th>Earnings Per Share (EPS)</th>
+                        <th>Operating Income</th>
                     </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody>
                     {data.map((item) => (
                         <tr key={item.date}>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.date}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.revenue.toLocaleString()}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.netIncome.toLocaleString()}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.grossProfit.toLocaleString()}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.eps.toFixed(2)}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.operatingIncome.toLocaleString()}</td>
+                            <td>{item.date}</td>
+                            <td>${item.revenue.toLocaleString()}</td>
+                            <td>${item.netIncome.toLocaleString()}</td>
+                            <td>${item.grossProfit.toLocaleString()}</td>
+                            <td>${item.eps.toFixed(2)}</td>
+                            <td>${item.operatingIncome.toLocaleString()}</td>
                         </tr>
                     ))}
                 </tbody>

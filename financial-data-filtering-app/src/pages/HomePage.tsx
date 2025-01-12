@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import DataTable from '../components/DataTable';
-import FilterForm from '../components/FilterForm';
+import React, { useState, useEffect } from 'react';
 import SortButtons from '../components/SortButtons';
 import useFetchData from '../hooks/useFetchData';
 import { FinancialData, FilterCriteria } from '../types';
+import DataTable from '../components/DataTable';
+import FilterForm from '../components/FilterForm';
+import '../styles/HomePage.css';
 
 const HomePage: React.FC = () => {
     const { data, loading, error } = useFetchData(`https://financialmodelingprep.com/api/v3/income-statement/AAPL?period=annual&apikey=4TiqIE3kxLx0SCU7HqNhURgxpkdgA19h`);
     const [filteredData, setFilteredData] = useState<FinancialData[]>(data || []);
-    
+
+    useEffect(() => {
+        if (data) {
+            setFilteredData(data);
+        }
+    }, [data]);
+
     const handleFilter = (filters: FilterCriteria) => {
         const { dateRange, revenueRange, netIncomeRange } = filters;
         const [startDate, endDate] = dateRange;
@@ -39,25 +46,20 @@ const HomePage: React.FC = () => {
                 return a[sortKey] < b[sortKey] ? 1 : -1;
             }
         });
-
         setFilteredData(sorted);
     };
-
-    useEffect(() => {
-        if (data) {
-            setFilteredData(data);
-        }
-    }, [data]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error fetching data: {error}</div>;
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Financial Data Filtering App</h1>
+        <div className="container">
+            <h1>Financial Data Filtering App</h1>
             <FilterForm onFilter={handleFilter} />
             <SortButtons onSort={handleSort} />
-            <DataTable data={filteredData} />
+            <div className="data-table">
+                <DataTable data={filteredData} />
+            </div>
         </div>
     );
 };
